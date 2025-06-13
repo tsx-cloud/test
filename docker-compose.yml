@@ -1,0 +1,19 @@
+services:
+  vrising:
+    image: tsxcloud/vrising-ntsync:latest
+    environment:
+      - TZ=Europe/Kyiv
+      - SERVERNAME=XTFOX
+      - ENABLE_PLUGINS=false
+    volumes:
+      - ./vrising/server:/mnt/vrising/server
+      - ./vrising/persistentdata:/mnt/vrising/persistentdata
+    ports:
+      - '9876:9876/udp'
+      - '9877:9877/udp'
+      - "25575:25575/tcp" #rcon
+      - "9099:9090/tcp" # Prometeus/api
+    restart: unless-stopped
+    network_mode: bridge
+#    devices:
+#      - /dev/ntsync:/dev/ntsync
